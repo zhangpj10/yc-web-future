@@ -1,62 +1,63 @@
-const glob = require('glob')
-const path = require('path')
-const resolve = (dir) => path.join(__dirname, dir)
+const glob = require('glob');
+const path = require('path');
+const MODULE_PATH = path.resolve(__dirname, './src/pages');
+// const resolve = (dir) => path.join(__dirname, dir);
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const isProd = process.env.NODE_ENV === 'production';
 
-const PAGES_PATH = './src/pages/*/*.js'
-
-module.exports = {
-  pages: setPages(),
-  // TODO：以下内容非生成多页应用必须配置
-  lintOnSave: true,
-  productionSourceMap: false,
-  chainWebpack: config => {
-    /**
-     * 添加别名
-     */
-    config.resolve.alias
-      .set('@index', resolve('src/pages/index'))
-      .set('@label', resolve('src/pages/label'))
-      .set('@metrics', resolve('src/pages/metric'))
-      .set('@service', resolve('src/pages/service'))
-      .set('@stocktake', resolve('src/pages/stocktake'))
-    /**
-     * 菜单icon处理为svg-sprite
-     */
-    config.module
-      .rule('svg')
-      .exclude
-      .add(resolve('src/assets/icons/menus'))
-      .end()
-    config.module
-      .rule('svg-sprite-loader')
-      .test(/\.svg$/)
-      .include
-      .add(resolve('src/assets/icons/menus')) // 处理目录
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]'
-      })
-  }
+let params;
+if (isProd) {
+  params = process.argv.slice(3)[0];
+} else {
+  const p = process.argv[process.argv.length - 1];
+  const module = p.match(/^--env.m=(.+)/);
+  params = module ? module[1] : undefined;
 }
+console.log(`${isProd ? '打包' : '启动'}：`, params === undefined ? ' 全量' : ` 模块：${params}`);
 
 /**
  * 组装页面
  */
 function setPages () {
-  let pages = {}
-  glob.sync(PAGES_PATH).forEach(filepath => {
-    let fileList = filepath.split('/')
-    let fileName = fileList[fileList.length - 2]
-
-    pages[fileName] = {
-      entry: filepath,
-      template: 'public/index.html',
-      filename: `${fileName}.html`,
-      // title:
-      chunks: ['chunk-vendors', 'chunk-common', fileName]
-    }
-  })
-  return pages
+  let pages = {};
+  const entryPaths = params === undefined ? '*/index.js' : `${params}/index.js`;
+  glob.sync(entryPaths, { cwd: MODULE_PATH }).forEach(entryPath => {
+    const module = entryPath.split('/')[0];
+    // const filename = `index.${isProd ? 'ftl' : 'html'}`;
+    const htmlPlugin = new HtmlWebpackPlugin({
+      entry: `src/pages/${module}/index.js`,
+      template: `src/pages/${module}/index.ftl`,
+      // filename: isProd ? path.posix.join(path.resolve(__dirname, '../dist'), `/pages`, filename) : filename,
+      filename: `app/${module}/index.ftl`,
+      chunks: ['chunk-vendors', 'chunk-common', `${module}`]
+    })
+    pages[module] = htmlPlugin.options;
+  });
+  return pages;
 }
+
+module.exports = {
+  pages: setPages(),
+  // 输出文件目录
+  outputDir: 'dist',
+  lintOnSave: true,
+  productionSourceMap: false,
+  chainWebpack: config => {
+    // 配置ftl
+    config.module
+      .rule('htmlVal')
+      .test(/\.(ftl|html|htm)$/i)
+      .use('html-loader')
+      .loader('html-loader');
+  },
+  css: {
+    // 是否使用css分离插件 ExtractTextPlugin
+    extract: true,
+    // 开启 CSS source maps?
+    sourceMap: true,
+    // css预设器配置项
+    loaderOptions: {},
+    // 启用 CSS modules for all css / pre-processor files.
+    modules: false
+  }
+};
