@@ -1,59 +1,23 @@
-const glob = require('glob');
 const path = require('path');
-const MODULE_PATH = path.resolve(__dirname, './src/pages');
-// const resolve = (dir) => path.join(__dirname, dir);
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
+const multipageTools = require('./utils/multipage.js');
 
 let modules = [];
-modules = process.argv.splice(3);
-console.log(`${isProd ? '打包' : '启动'}：`, modules.length === 0 ? ' 全量' : ` 模块：${modules}`);
-/**
- * 获取全部模块
- */
-function getModules () {
-  const moduleNames = [];
-  const entryPaths = '*/index.js';
-  glob.sync(entryPaths, { cwd: MODULE_PATH }).forEach(entryPath => {
-    const module = entryPath.split('/')[0];
-    if (!module) {
-      console.error(`-------> ${module} 模块不存在，请确认路径以及文件名`);
-    } else {
-      moduleNames.push(`${module}`);
-    }
-  });
-  return moduleNames;
-}
-if (modules.length === 0) {
-  modules = getModules();
-}
-/**
- * 组装页面
- */
-function setPages () {
-  let pages = {};
-  modules.forEach((item) => {
-    // const htmlPlugin = new HtmlWebpackPlugin({
-    //   entry: `src/pages/${item}/index.js`,
-    //   template: `src/pages/${item}/index.ftl`,
-    //   filename: isProd ? `app/${item}/index.ftl` : `index.ftl`,
-    //   chunks: ['chunk-vendors', 'chunk-common', `${item}`],
-    //   chunksSortMode: 'dependency'
-    // });
-    // pages[item] = htmlPlugin.options;
-    pages[item] = {
-      entry: `src/pages/${item}/index.js`,
-      template: `src/pages/${item}/index.ftl`,
-      filename: isProd ? `app/${item}/index.ftl` : `${item}.ftl`,
-      chunks: ['chunk-vendors', 'chunk-common', `${item}`],
-      chunksSortMode: 'dependency'
-    };
-  });
-  return pages;
+if (isProd) {
+  debugger;
+  modules = process.argv[3] ? process.argv[3].split(',') : [];
+} else {
+  const p = process.argv[process.argv.length - 1];
+  const module = p.match(/^--env.m=(.+)/);
+  modules = module ? module[1].split(',') : [];
 }
 
+console.log(`${isProd ? '打包' : '启动'}：`, modules.length === 0 ? ' 全量' : ` 模块：${modules}`);
+if (modules.length === 0) {
+  modules = multipageTools.getAllPageName();
+}
 module.exports = {
-  pages: setPages(),
+  pages: multipageTools.setPages(modules),
   // 输出文件目录
   outputDir: 'dist',
   // build时放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
