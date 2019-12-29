@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE9">
   <meta name="renderer" content="webkit">
-  <title>测试0</title>
+  <title>厦门钇企财富有限公司</title>
 </head>
 <body>
 <div id="app"></div>

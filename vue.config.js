@@ -1,10 +1,10 @@
 const path = require('path');
 const isProd = process.env.NODE_ENV === 'production';
 const multipageTools = require('./utils/multipage.js');
+const Mock = require('./src/pages/yqcf/mock');
 
 let modules = [];
 if (isProd) {
-  debugger;
   modules = process.argv[3] ? process.argv[3].split(',') : [];
 } else {
   const p = process.argv[process.argv.length - 1];
@@ -58,11 +58,16 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
+    compress: true,
+    contentBase: path.join(__dirname, '../src/pages/yqcf/mock'),
     port: 8080,
     https: false,
     overlay: {
       warnings: true,
       errors: true
+    },
+    before(app) {
+      Mock(app)
     }
   }
 };

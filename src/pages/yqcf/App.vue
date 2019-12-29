@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    测试
+    <router-view></router-view>
   </div>
 </template>
 
 <style lang="scss">
+  html,body {
+    margin: 0;
+    overflow: hidden;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
