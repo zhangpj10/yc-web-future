@@ -2,6 +2,7 @@ const path = require('path');
 const isProd = process.env.NODE_ENV === 'production';
 const multipageTools = require('./utils/multipage.js');
 const Mock = require('./src/pages/yqcf/mock');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 let modules = [];
 if (isProd) {
@@ -36,13 +37,32 @@ module.exports = {
       .test(/\.(ftl|html|htm)$/i)
       .use('html-loader')
       .loader('html-loader');
+    // 压缩图片
+    // config.module
+    //   .rule('images')
+    //   .use('image-webpack-loader')
+    //   .loader('image-webpack-loader')
+    //   .options({
+    //     bypassOnDebug: true
+    //   })
+    //   .end()
   },
   configureWebpack: {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src')
       }
-    }
+    },
+    plugins: [
+      new CompressionWebpackPlugin({
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.js$|\.html$|\.json$|\.css/,
+        threshold: 0, // 只有大小大于该值的资源会被处理
+        minRatio:0.8, // 只有压缩率小于这个值的资源才会被处理
+        deleteOriginalAssets: true // 删除原文件
+      })
+    ]
   },
   css: {
     // 默认生产环境下是 true，开发环境下是 false
