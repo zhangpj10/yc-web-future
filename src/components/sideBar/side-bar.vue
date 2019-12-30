@@ -1,4 +1,4 @@
-  
+
 <template>
   <div class="sidebar-container">
     <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -29,15 +29,11 @@ export default {
 <style lang="scss">
   .sidebar-container {
     transition: width 0.28s;
-    width: 180px !important;
     height: 100%;
+    width: 10%;
     position: fixed;
     font-size: 0px;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-    overflow: hidden;
- 
+
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }

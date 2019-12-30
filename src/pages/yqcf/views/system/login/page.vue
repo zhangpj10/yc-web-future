@@ -115,8 +115,9 @@ export default {
           // 注意 这里的演示没有传验证码
           // 具体需要传递的数据请自行修改代码
           this.login(this.loginForm).then(() => {
+            debugger;
             // 重定向对象不存在则返回顶层路径
-            this.$router.push({name: 'index'})
+            this.$router.push({ name: 'index' })
             // this.$router.replace(this.$route.query.redirect || '/');
           });
         } else {
@@ -148,6 +149,7 @@ export default {
 
 <style scoped lang="scss">
   .login {
+    text-align: center;
     &-title {
       padding-left: 48px; //让变体居中 这里使用的是padding-left
     }

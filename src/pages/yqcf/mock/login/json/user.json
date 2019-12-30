@@ -4,7 +4,48 @@
     "age": "28",
     "userId": "1",
     "uuid": "dqwfqqwtd13",
-    "token": "zhangpj13412415125fsf"
+    "token": "zhangpj13412415125fsf",
+    "menuList": [
+      {
+        "path": "/func1",
+        "icon": "el-icon-s-goods",
+        "title": "功能1",
+        "children": []
+      },
+      {
+        "path": "/func2",
+        "title": "功能2",
+        "icon": "el-icon-info",
+        "children": []
+      },
+      {
+        "path": "/func3",
+        "title": "功能3",
+        "icon": "el-icon-message-solid",
+        "children": [
+          {
+            "path": "/func31",
+            "title": "功能3-1",
+            "icon": "el-icon-s-platform",
+            "children": []
+          },
+          {
+            "path": "/func32",
+            "title": "功能3-2",
+            "icon": "el-icon-s-order",
+            "children": []
+          },
+          {
+            "path": "/func33",
+            "title": "功能3-3",
+            "icon": "el-icon-s-promotion",
+            "children": []
+          }
+        ]
+      }
+    ]
   },
-  "code": "success"
+  "code": "success",
+  "message": "请求成功"
 }
+

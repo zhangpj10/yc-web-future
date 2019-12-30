@@ -18,7 +18,7 @@ const router = new VueRouter({
 // TODO: 路由拦截
 router.beforeEach(async (to, from, next) => {
   const token = util.cookies.get('token');
-  if (whiteList.indexOf(to.path) === -1 || !to.meta.auth) {
+  if (whiteList.indexOf(to.path) === -1 || to.meta.auth) {
     // 这里暂时将cookie里是否存有token作为验证是否登录的条件
     // 请根据自身业务需要修改
     if (token && token !== 'undefined') {
