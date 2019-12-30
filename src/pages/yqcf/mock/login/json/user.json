@@ -1,7 +1,10 @@
 {
   "data": {
     "username": "zhangpj",
-    "age": "28"
+    "age": "28",
+    "userId": "1",
+    "uuid": "dqwfqqwtd13",
+    "token": "zhangpj13412415125fsf"
   },
   "code": "success"
 }

@@ -4,6 +4,9 @@ const loginPage = [
   {
     path: '/login',
     name: 'login',
+    meta: {
+      auth: false // 该路由是否需要登录权限
+    },
     component: _import('system/login')
   }
 ];
@@ -14,7 +17,7 @@ const frameIn = [
     redirect: { name: 'index' }
   },
   {
-    path: 'index',
+    path: '/index',
     name: 'index',
     meta: {
       auth: true

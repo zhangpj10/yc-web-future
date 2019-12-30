@@ -5,10 +5,10 @@ export default {
     info: {}
   },
   actions: {
-    set({ state }, info) {
+    setUser({ state }, info) {
       state.info = info;
     },
-    get({ state }) {
+    getUser({ state }) {
       return state.info;
     }
   }

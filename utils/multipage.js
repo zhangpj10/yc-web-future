@@ -26,7 +26,7 @@ module.exports = {
           entry: filePath,
           template: path.dirname(filePath) + '/index.ftl',
           filename: isProd ? `app/${module}/index.ftl` : `${module}.ftl`,
-          chunks: ['chunk-vendors', module]
+          chunks: ['chunk-vendors', 'chunk-common', module]
         };
       });
     });

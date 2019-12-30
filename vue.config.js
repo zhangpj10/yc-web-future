@@ -52,21 +52,21 @@ module.exports = {
       alias: {
         '@': path.resolve(__dirname, './src')
       }
-    },
-    plugins: [
-      new CompressionWebpackPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.js$|\.html$|\.json$|\.css/,
-        threshold: 0, // 只有大小大于该值的资源会被处理
-        minRatio:0.8, // 只有压缩率小于这个值的资源才会被处理
-        deleteOriginalAssets: true // 删除原文件
-      })
-    ]
+    }
+    // plugins: [
+    //   new CompressionWebpackPlugin({
+    //     filename: '[path].gz[query]',
+    //     algorithm: 'gzip',
+    //     test: /\.js$|\.html$|\.json$|\.css/,
+    //     threshold: 0, // 只有大小大于该值的资源会被处理
+    //     minRatio:0.8, // 只有压缩率小于这个值的资源才会被处理
+    //     deleteOriginalAssets: true // 删除原文件
+    //   })
+    // ]
   },
   css: {
     // 默认生产环境下是 true，开发环境下是 false
-    extract: true,
+    extract: process.env.NODE_ENV === 'production',
     // 是否为 CSS 开启 source map。设置为 true 之后可能会影响构建的性能
     sourceMap: false,
     requireModuleExtension: true,
