@@ -2,14 +2,14 @@
   <div v-if="item.children">
     <template v-if="item.children.length == 0">
         <el-menu-item :index="item.path">
-          <i class="el-icon-menu"></i>
+          <i :class="item.icon"></i>
           {{item.title}}
         </el-menu-item>
     </template>
 
     <el-submenu v-else :index="item.path">
       <template slot="title" >
-        <i class="el-icon-menu"></i>
+        <i :class="item.icon"></i>
         {{item.title}}
       </template>
 
@@ -19,7 +19,7 @@
           :item="child"
           :key="child.path"/>
         <el-menu-item v-else :key="child.path" :index="child.path">
-          <i class="el-icon-location"></i>
+          <i :class="child.icon"></i>
           {{child.title}}
         </el-menu-item>
       </template>

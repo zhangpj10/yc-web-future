@@ -1,11 +1,14 @@
 <template>
     <div class="container">
       <el-container>
-        <el-aside width="auto">
-          <side-bar :menuList="menuList"></side-bar>
+        <el-aside width="10%">
+          <div class="container-aside-title">YQCF-ADMIN</div>
+          <side-bar :menuList="aside"></side-bar>
         </el-aside>
         <el-container>
-          <el-header>Header</el-header>
+          <el-header>
+            <el-button @click="onLogout">退出登录</el-button>
+          </el-header>
           <el-main>Main</el-main>
         </el-container>
       </el-container>
@@ -14,6 +17,7 @@
 
 <script>
 import SideBar from '@/components/sideBar/side-bar';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'index-page',
@@ -22,39 +26,19 @@ export default {
   },
   data() {
     return {
-      menuList: [
-          {
-            "path": "/func1",     //菜单项所对应的路由路径
-            "title": "功能1",     //菜单项名称
-            "children":[]        //是否有子菜单，若没有，则为[]
-          },
-          {
-            "path": "/func2",
-            "title": "功能2",
-            "children":[]
-          },
-          {
-            "path": "/func3",
-            "title": "功能3",
-            "children": [
-              {
-                "path": "/func31",
-                "title": "功能3-1",
-                "children":[]
-              },
-              {
-                "path": "/func32",
-                "title": "功能3-2",
-                "children":[]
-              },
-              {
-                "path": "/func33",
-                "title": "功能3-3",
-                "children":[]
-              }
-            ]
-          }
-      ]
+    }
+  },
+  computed: {
+    ...mapState('yqadmin/menu', [
+      'aside'
+    ])
+  },
+  methods: {
+    ...mapActions('yqadmin/account', [
+      'logout'
+    ]),
+    onLogout() {
+      this.logout();
     }
   }
 };
@@ -73,6 +57,16 @@ export default {
   .el-header {
     background-color: #071d1536;
      color: white;
+  }
+  &-aside {
+    &-title {
+      text-align: center;
+      height: 59px;
+      border-bottom: 1px solid #fff;
+      line-height: 60px;
+      font-size: 20px;
+      background-color: rgb(48, 65, 86);
+    }
   }
 }
 </style>

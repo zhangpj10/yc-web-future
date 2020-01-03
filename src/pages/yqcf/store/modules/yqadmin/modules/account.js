@@ -1,11 +1,12 @@
 // import router from '@/pages/yqcf/router';
 import util from '@/pages/yqcf/libs/util';
 import { AccountLogin } from '@/pages/yqcf/api/system/login';
+import router from '@/pages/yqcf/router';
 
 export default {
   namespaced: true,
   actions: {
-    login({ dispatch }, data = {}) {
+    login({ commit, dispatch }, data = {}) {
       return new Promise((resolve, reject) => {
         // 开始请求登录接口
         AccountLogin(data)
@@ -14,6 +15,7 @@ export default {
             util.cookies.set('uuid', res.userId);
             util.cookies.set('token', res.token);
             dispatch('yqadmin/user/setUser', res, { root: true });
+            commit('yqadmin/menu/asideSet', res.menuList, { root: true });
             // 结束
             resolve();
           })
@@ -22,6 +24,18 @@ export default {
             reject(err);
           });
       });
+    },
+    logout({ commit, dispatch }, { confirm = false } = {}) {
+      util.cookies.remove('token');
+      util.cookies.remove('uuid');
+      window.clearVuexAlong(false, true);
+      // 跳转路由
+      router.push({
+        name: 'login'
+      });
+      // 清空 vuex 用户信息
+      // await dispatch('d2admin/user/set', {}, { root: true });
+      window.location.reload();
     }
   }
 };
