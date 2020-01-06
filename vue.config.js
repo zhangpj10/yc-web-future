@@ -20,7 +20,7 @@ if (modules.length === 0) {
 module.exports = {
   pages: multipageTools.setPages(modules),
   // 输出文件目录
-  outputDir: 'dist',
+  outputDir: 'docs',
   // build时放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
   assetsDir: 'static',
   // 默认在生成的静态资源文件名中包含hash以控制缓存
