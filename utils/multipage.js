@@ -25,7 +25,7 @@ module.exports = {
         pages[module] = {
           entry: filePath,
           template: path.dirname(filePath) + '/index.ftl',
-          filename: isProd ? `app/${module}/index.ftl` : `${module}.ftl`,
+          filename: isProd ? `app/${module}/index.html` : `${module}.ftl`,
           chunks: ['chunk-vendors', 'chunk-common', module]
         };
       });
