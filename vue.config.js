@@ -25,6 +25,7 @@ module.exports = {
   assetsDir: 'static',
   // 默认在生成的静态资源文件名中包含hash以控制缓存
   filenameHashing: true,
+  publicPath:"./",
   lintOnSave: true,
   runtimeCompiler: true, // 运行时版本是否需要编译
   productionSourceMap: false, // 生成环境下css分离文件
