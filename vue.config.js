@@ -20,12 +20,12 @@ if (modules.length === 0) {
 module.exports = {
   pages: multipageTools.setPages(modules),
   // 输出文件目录
-  outputDir: 'docs',
+  // outputDir: 'docs',
   // build时放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录
-  // assetsDir: 'static',
+  assetsDir: 'static',
   // 默认在生成的静态资源文件名中包含hash以控制缓存
   filenameHashing: true,
-  publicPath:"./",
+  // publicPath:"./",
   lintOnSave: true,
   runtimeCompiler: true, // 运行时版本是否需要编译
   productionSourceMap: false, // 生成环境下css分离文件

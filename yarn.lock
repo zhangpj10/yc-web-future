@@ -7706,6 +7706,11 @@ schema-utils@^2.6.1:
     ajv "^6.10.2"
     ajv-keywords "^3.4.1"
 
+screenfull@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/screenfull/download/screenfull-5.0.1.tgz#873052411eb9096bc1c8e615f5badad119e6e42c"
+  integrity sha1-hzBSQR65CWvByOYV9bra0Rnm5Cw=
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.npm.taobao.org/scss-tokenizer/download/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"

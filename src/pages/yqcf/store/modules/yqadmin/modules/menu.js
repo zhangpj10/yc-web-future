@@ -8,14 +8,6 @@ export default {
   },
   actions: {
     /**
-     * 设置侧边栏展开或者收缩
-     * @param {Object} state vuex state
-     * @param {Boolean} collapse is collapse
-     */
-    asideCollapseSet({ state, dispatch }, collapse) {
-        state.asideCollapse = collapse;
-    },
-    /**
      * 切换侧边栏展开和收缩
      * @param {Object} state vuex state
      */

@@ -118,11 +118,10 @@ export default {
             debugger;
             // 重定向对象不存在则返回顶层路径
             this.$router.push({ name: 'index' })
-            // this.$router.replace(this.$route.query.redirect || '/');
           });
         } else {
           // 登录表单校验失败
-          this.$message.error('表单校验失败');
+          this.$message.error('登录信息有误，请检查！');
         }
       });
     },

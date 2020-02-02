@@ -15,6 +15,7 @@ export default {
             util.cookies.set('uuid', res.userId);
             util.cookies.set('token', res.token);
             dispatch('yqadmin/user/setUser', res, { root: true });
+            dispatch('yqadmin/fullscreen/listen', null, { root: true });
             commit('yqadmin/menu/asideSet', res.menuList, { root: true });
             // 结束
             resolve();

@@ -2,20 +2,15 @@
   "data": {
     "username": "zhangpj",
     "age": "28",
+    "rolename": "超级管理员",
     "userId": "1",
     "uuid": "dqwfqqwtd13",
     "token": "zhangpj13412415125fsf",
     "menuList": [
       {
-        "path": "/func1",
+        "path": "/index",
         "icon": "el-icon-s-goods",
-        "title": "功能1",
-        "children": []
-      },
-      {
-        "path": "/func2",
-        "title": "功能2",
-        "icon": "el-icon-info",
+        "title": "系统首页",
         "children": []
       },
       {

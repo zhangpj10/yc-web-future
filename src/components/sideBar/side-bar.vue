@@ -1,12 +1,14 @@
 
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container" :style="{ width: asideCollapse ? '48px' : '250px'}">
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         router
         mode="vertical"
         background-color="#304156"
+        :collapse="asideCollapse"
         text-color="#bfcbd9"
+        :default-active="defaultActive"
         active-text-color="#409EFF">
       <sidebar-item v-for="menu in menuList" :key="menu.path" :item="menu" />
     </el-menu>
@@ -14,7 +16,9 @@
   </div>
 </template>
 <script>
-import SidebarItem from './sidebar-item'
+import SidebarItem from './sidebar-item';
+import { mapState } from 'vuex';
+
 export default {
   name:'side-bar',
   components: { SidebarItem },
@@ -22,15 +26,24 @@ export default {
     menuList: {
       type: Array,
       required: true
+    },
+    defaultActive: {
+      type: String,
+      default: '/index'
     }
+  },
+  computed: {
+    ...mapState('yqadmin/menu', [
+      'asideCollapse'
+    ])
   }
 }
 </script>
 <style lang="scss">
   .sidebar-container {
-    transition: width 0.28s;
+    /*transition: width 0.28s;*/
     height: 100%;
-    width: 10%;
+    /*width: 10%;*/
     position: fixed;
     font-size: 0px;
 
